@@ -2,15 +2,20 @@
   "name": "vrk-creations",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "nodemon ./bin/www "
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "^4.18.2",
+    "express-http-proxy": "^2.0.0",
     "http-errors": "~1.6.3",
     "jade": "^0.29.0",
     "morgan": "~1.9.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
   }
 }

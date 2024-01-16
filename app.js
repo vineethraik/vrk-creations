@@ -1,15 +1,20 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+import createError from 'http-errors';
+import express from 'express';
+import path from 'path';
+import cookieParser from 'cookie-parser';
+import {default as logger} from 'morgan'
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+import indexRouter from './routes/index.js';
+import usersRouter from './routes/users.js';
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
-var app = express();
 
-// view engine setup
+
+const app = express();
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
