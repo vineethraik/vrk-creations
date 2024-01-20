@@ -129,3 +129,10 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+#greenlock 
+greenlock.d/accounts/*
+greenlock.d/live/*
+
+#vscode
+.vscode/*
