@@ -19,7 +19,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(
-  "/",
+  ["/site/test", "/site"],
   express.static(path.join(__dirname, "../vrk-creations-site/build"))
 );
 
