@@ -136,3 +136,6 @@ greenlock.d/live/*
 
 #vscode
 .vscode/*
+
+#static files
+static/*

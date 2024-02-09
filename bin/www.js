@@ -16,7 +16,7 @@ const __dirname = url.fileURLToPath(new URL("../", import.meta.url));
  */
 
 var port = normalizePort(process.env.PORT || "4041");
-app.set("port", port);
+if (!process.env.RUN_GREENLOCK) app.set("port", port);
 
 /**
  * Create HTTP server.
