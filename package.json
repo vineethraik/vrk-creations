@@ -5,11 +5,14 @@
   "type": "module",
   "scripts": {
     "start": "nodemon ./bin/www.js ",
-    "build:site":"rm -r ./static/site && cd ../vrk-creations-site && npm run build && cp -r build ../vrk-creations/static/site",
-    "prod": " npm run build:site && sudo node ./bin/www.js "
+    "site:build": "npm run site:pull && rm -r ./static/site && cd ../vrk-creations-site && npm run build && cp -r build ../vrk-creations/static/site",
+    "site:pull": " cd ../vrk-creations-site && git branch main && git pull && cd ../vrk-creations",
+    "prod": " npm run pull && npm run site:build && sudo node ./bin/www.js ",
+    "pull": "git branch main && git pull "
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
     "debug": "~2.6.9",
     "dotenv": "^16.3.2",
     "express": "^4.18.2",
@@ -17,8 +20,11 @@
     "greenlock-express": "^4.0.3",
     "http-errors": "~1.6.3",
     "jade": "^0.29.0",
+    "moment": "^2.30.1",
+    "mongodb": "^6.3.0",
     "morgan": "~1.9.1",
-    "nocache": "^4.0.0"
+    "nocache": "^4.0.0",
+    "underscore": "^1.13.6"
   },
   "devDependencies": {
     "nodemon": "^3.0.2"
