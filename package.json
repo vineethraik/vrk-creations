@@ -5,8 +5,10 @@
   "type": "module",
   "scripts": {
     "start": "nodemon ./bin/www.js ",
-    "build:site":"rm -r ./static/site && cd ../vrk-creations-site && npm run build && cp -r build ../vrk-creations/static/site",
-    "prod": " npm run build:site && sudo node ./bin/www.js "
+    "site:build": "npm run site:pull && rm -r ./static/site && cd ../vrk-creations-site && npm run build && cp -r build ../vrk-creations/static/site",
+    "site:pull": " cd ../vrk-creations-site && git branch main && git pull && cd ../vrk-creations",
+    "prod": " npm run pull && npm run site:build && sudo node ./bin/www.js ",
+    "pull": "git branch main && git pull "
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
