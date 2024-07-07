@@ -1,5 +1,5 @@
 import moment from "moment";
-import { db } from "../../app.js";
+import { db } from "../services/mongoDB.js";
 import { collections } from "../constants/DB.js";
 import { requestTargets } from "../constants/contactUs.js";
 import { triggerErrorInSentry } from "../services/sentry.js";
