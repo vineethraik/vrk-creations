@@ -12,5 +12,4 @@ mkdirSync(`${__dirname}/../../static/hosting`);
 }
 const hostingSet =  await db.collection(collections.HOSTING_SITES_DATA).find({}).toArray();
 
-// console.log(hostingSet);
 exit();

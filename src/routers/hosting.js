@@ -21,7 +21,6 @@ hostingSet.map((hostingData) => {
     `/${hostingData?._id}`,
     express.static(path.join(__dirname, `../../static/hosting/${hostingData?._id}`))
   );
-  console.log(`/${hostingData?._id}`);
   if (hostingData?.project.type === "react") {
     hostingRouter.get(`/${hostingData?._id}/*`, (req, res) => {
       res.sendFile(
@@ -44,7 +43,6 @@ hostingSet.map((hostingData) => {
     });
   }
 });
-// console.log(hostingRouter.stack.map((route) => route.path || route.regexp));
 
 
 export default hostingRouter;

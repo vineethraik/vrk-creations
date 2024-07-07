@@ -39,7 +39,6 @@ hostingSet.forEach((data) => {
     }
   }
   hostingCompletedCount++;
-  console.log(data._id);
 });
 
 while (hostingCompletedCount < hostingSet.length);

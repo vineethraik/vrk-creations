@@ -57,7 +57,6 @@ let hostingCompletedCount = 0;
      }
   }
   hostingCompletedCount++;
-  console.log(data._id);
 });
   
 while (hostingCompletedCount < hostingSet.length);
