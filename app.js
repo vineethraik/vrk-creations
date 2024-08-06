@@ -9,6 +9,7 @@ import vrkCreationsRouter from "./src/routers/vrkcreations.js";
 import cors from "cors";
 import "dotenv/config.js";
 import hostingRouter from "./src/routers/hosting.js";
+import filesRouter from "./src/routers/files.js";
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -36,6 +37,8 @@ app.get("/site/*", (req, res) => {
 app.use("/hosting/", hostingRouter);
 
 app.use("/api/vrkcreations", vrkCreationsRouter);
+
+app.use("/api/files", filesRouter);
 
 
 // catch 404 and forward to error handler
