@@ -33,6 +33,11 @@ app.get("/site/*", (req, res) => {
   res.sendFile(path.join(__dirname, "./static/site", "index.html"));
 });
 
+app.use("/wedsite", express.static(path.join(__dirname, "./static/wedsite")));
+app.get("/wedsite/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "./static/wedsite", "index.html"));
+});
+
 
 app.use("/hosting/", hostingRouter);
 
