@@ -4,4 +4,6 @@ export const collections = {
   CONTACT_US_LOG: "contact_us_log",
   HOSTING_SITES_DATA: "hosting_sites_data",
   FILE_UPLOAD_REGISTRY: "file_upload_registry",
+  AUTH_USERS: "auth_users",
+  AUTH_SESSIONS: "auth_sessions",
 };
