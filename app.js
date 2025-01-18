@@ -17,6 +17,7 @@ import MongoStore from "connect-mongo";
 import { mongoDBClient } from "./src/services/mongoDB.js";
 import { collections } from "./src/constants/DB.js";
 import { triggerErrorInSentry } from "./src/services/sentry.js";
+import dataRouter from "./src/routers/data.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -58,7 +59,7 @@ app.get("/wedsite/*", (req, res) => {
   res.sendFile(path.join(__dirname, "./static/wedsite", "index.html"));
 });
 
-
+// need completion
 app.use("/hosting/", hostingRouter);
 
 app.use("/api/auth/", authRouter);
@@ -67,6 +68,7 @@ app.use("/api/vrkcreations", vrkCreationsRouter);
 
 app.use("/api/files", filesRouter);
 
+app.use("/api/data", dataRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
