@@ -139,3 +139,6 @@ greenlock.d/live/*
 
 #static files
 static/*
+
+#greenlock files
+greenlock.d/config.json.bak
