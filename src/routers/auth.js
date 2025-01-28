@@ -4,6 +4,8 @@ import { handleGoogleLoginSuccuss } from "../controllers/auth.js";
 import { ensureLoggedIn } from "connect-ensure-login";
 import { sendWhatsappOtp } from "../services/whatsapp.js";
 import { Response, STATUS } from "../model/response.js";
+import { triggerErrorInSentry } from "../services/sentry.js";
+import { getCustomError } from "../utils/vrkcreations.js";
 
 const authRouter = Router();
 
@@ -14,16 +16,39 @@ authRouter.get(
     setReturnTo: true,
   }),
   (req, res) => {
-    console.log(req.user); 
+    console.log(req.user);
 
     res.status(200).send("authRouter:ok");
   }
 );
 
+authRouter.get("/logout", (req, res) => {
+  try {
+    req.logout((err) => {
+      if (err) {
+        triggerErrorInSentry(
+          getCustomError(`authRouter/logout:${err.message}`, err)
+        );
+        return res
+          .status(500)
+          .json(new Response({ status: STATUS.ERROR, message: err.message }));
+      }
+    });
+    res.status(200).json(new Response({ status: STATUS.SUCCESS }));
+  } catch (error) {
+    triggerErrorInSentry(
+      getCustomError(`authRouter/logout:${error.message}`, error)
+    );
+    return res
+      .status(500)
+      .json(new Response({ status: STATUS.ERROR, message: error.message }));
+  }
+});
+
 authRouter.get("/is_logged_in", (req, res) => {
   if (req.user) {
-    const { name, avatar,roles, ...restData } = req.user;
-    return res.status(200).json({ name, avatar,roles });
+    const { name, avatar, roles, ...restData } = req.user;
+    return res.status(200).json({ name, avatar, roles });
   } else {
     return res.status(401).send("false");
   }
@@ -68,7 +93,7 @@ authRouter.post("/phone/otp", async (req, res) => {
             status: STATUS.SUCCESS,
             message: d.message,
           })
-        )
+        );
         res.responseSent = true;
       } else {
         res.status(500).json(
@@ -79,7 +104,6 @@ authRouter.post("/phone/otp", async (req, res) => {
         );
         res.responseSent = true;
       }
-      
     })
     .catch((error) => {
       console.log(error);
