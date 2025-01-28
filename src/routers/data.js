@@ -18,8 +18,8 @@ dataRouter.get("/user", async (req, res) => {
       if (!user) {
         return res.status(200).json(
           new Response({
-            status: STATUS.SUCCESS,
-            data: {},
+            status: STATUS.ERROR,
+            message: "User not found in database",
           })
         );
       }

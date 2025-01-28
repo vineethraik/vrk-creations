@@ -145,13 +145,15 @@ passport.use(
 
       const userData = await getUserData(request.body.number);
       
-      let user;
+      let processesUser;;
       if (!!userData) {
         await db
           .collection(collections.AUTH_USERS)
           .findOne({ "phone.contact": request.body.number })
           .then(async (user) => {
             if (user) {
+              const {_id,...restOfUser} = user;
+              processesUser = {...restOfUser,id: _id};
               return done(null, {
                 id: user._id,
                 number: request.body.number,
@@ -180,16 +182,17 @@ passport.use(
                   ...user,
                 });
               user.id = userId.insertedId;
+              processesUser = user;
             }
           });
       }
-      console.log("user:",user);
+      console.log("user:", processesUser);
       
 
       return done(null, {
         number: request.body.number,
         verified: true,
-        ...user,
+        ...processesUser,
       });
     } catch (error) {
       console.log(error);
