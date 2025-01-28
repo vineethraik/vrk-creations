@@ -152,7 +152,8 @@ passport.use(
           .findOne({ "phone.contact": request.body.number })
           .then(async (user) => {
             if (user) {
-              processesUser = user;
+              const {_id,...restOfUser} = user;
+              processesUser = {...restOfUser,id: _id};
               return done(null, {
                 id: user._id,
                 number: request.body.number,
