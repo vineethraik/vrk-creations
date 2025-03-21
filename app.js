@@ -78,6 +78,13 @@ app.use(function (req, res, next) {
 // error handler
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
+  err.message =
+    err.message +
+    " | " +
+    req.protocol +
+    "://" +
+    req.get("host") +
+    req.originalUrl;
   triggerErrorInSentry(err);
   res.locals.message = err.message;
   console.log(req.query);
