@@ -84,7 +84,7 @@ app.use(function (err, req, res, next) {
     req.protocol +
     "://" +
     req.get("host") +
-    req.originalUrl;
+    req.originalUrl+" ip:"+req.ip;
   triggerErrorInSentry(err);
   res.locals.message = err.message;
   console.log(req.query);
