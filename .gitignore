@@ -142,3 +142,6 @@ static/*
 
 #greenlock files
 greenlock.d/config.json.bak
+
+#Extra trap data
+not-found-routes.json

@@ -18,6 +18,8 @@ import { mongoDBClient } from "./src/services/mongoDB.js";
 import { collections } from "./src/constants/DB.js";
 import { triggerErrorInSentry } from "./src/services/sentry.js";
 import dataRouter from "./src/routers/data.js";
+import trapRouter from "./src/routers/trap.js";
+import fs from "fs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -70,8 +72,33 @@ app.use("/api/files", filesRouter);
 
 app.use("/api/data", dataRouter);
 
+app.use("/", trapRouter);
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
+  const notFoundRoutesPath = path.join(__dirname, "not-found-routes.json");
+  fs.readFile(notFoundRoutesPath, "utf8", (err, data) => {
+    let notFoundRoutes = [];
+    if (!err) {
+      try {
+        notFoundRoutes = JSON.parse(data);
+      } catch (e) {
+        console.error("Error parsing not-found-routes.json:", e);
+      }
+    }
+    if (!notFoundRoutes.includes(req.path)) {
+      notFoundRoutes.push(req.path);
+      fs.writeFile(
+        notFoundRoutesPath,
+        JSON.stringify(notFoundRoutes, null, 2),
+        (err) => {
+          if (err) {
+            console.error("Error writing to not-found-routes.json:", err);
+          }
+        }
+      );
+    }
+  });
   next(createError(404));
 });
 
